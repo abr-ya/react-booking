@@ -12,3 +12,27 @@
   width: 100%;
   max-width: 1024px;
 }
+
+.searchIcon {
+  color: lightgray;
+}
+
+.searchItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+}
+
+.searchBtn {
+  background-color: #0071c2;
+  color: white;
+  font-weight: 500;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
