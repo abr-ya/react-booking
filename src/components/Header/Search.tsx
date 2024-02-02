@@ -1,12 +1,27 @@
 import { useState } from "react";
+import { DateRange } from "react-date-range";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./search.module.css";
+import { format } from "date-fns";
 import { faBed, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+
+import styles from "./search.module.css";
 
 const Search = () => {
   const [destination, setDestination] = useState("");
 
-  const handleSearch = () => console.log(destination);
+  const [openDate, setOpenDate] = useState(false);
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
+  const handleSearch = () => console.log(destination, date);
 
   return (
     <div className={styles.search}>
@@ -21,7 +36,20 @@ const Search = () => {
       </div>
       <div className={styles.searchItem}>
         <FontAwesomeIcon icon={faCalendarDays} className={styles.searchIcon} />
-        {/* DateRange */}
+        <span
+          onClick={() => setOpenDate((prev) => !prev)}
+          className={styles.searchText}
+        >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+        {openDate && (
+          <DateRange
+            editableDateInputs={true}
+            onChange={(item) => setDate([item.selection])}
+            moveRangeOnFirstSelection={false}
+            ranges={date}
+            className={styles.date}
+            minDate={new Date()}
+          />
+        )}
       </div>
       {/* Person */}
       <div className={styles.searchItem}>

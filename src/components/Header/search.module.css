@@ -36,3 +36,14 @@
   padding: 10px;
   cursor: pointer;
 }
+
+.searchText {
+  color: lightgray;
+  cursor: pointer;
+}
+
+.date {
+  position: absolute;
+  top: 50px;
+  z-index: 2;
+}
