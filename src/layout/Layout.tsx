@@ -6,7 +6,6 @@ import styles from "./layout.module.css";
 
 const Layout = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <div className={styles.layout}>
