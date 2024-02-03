@@ -1,12 +1,5 @@
-import { Header, Navbar } from "../../components";
-
 const Home = () => {
-  return (
-    <div>
-      <Navbar />
-      <Header />
-    </div>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DateRange } from "react-date-range";
+import { DateRange, Range } from "react-date-range";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { faBed, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
@@ -7,21 +7,19 @@ import { faBed, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-import styles from "./search.module.css";
 import { IGuestsCount } from "../../interfaces";
+import styles from "./search.module.css";
 import Guests from "./Guests";
 
 const Search = () => {
   const [destination, setDestination] = useState("");
 
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
+  const [date, setDate] = useState<Range>({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection",
+  });
 
   const [guests, setGuests] = useState<IGuestsCount>({
     adult: 1,
@@ -29,7 +27,7 @@ const Search = () => {
     room: 1,
   });
 
-  const submitHandler = () => console.log(destination, date);
+  const submitHandler = () => console.log("search handler", destination, date, guests);
 
   const guestsHandler = (key: keyof IGuestsCount, isAdd?: boolean) => {
     setGuests((prev) => ({ ...prev, [key]: isAdd ? prev[key] + 1 : prev[key] - 1 }));
@@ -51,14 +49,14 @@ const Search = () => {
       <div className={styles.searchItem}>
         <FontAwesomeIcon icon={faCalendarDays} className={styles.searchIcon} />
         <span onClick={() => setOpenDate((prev) => !prev)} className={styles.searchText}>
-          {`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(date[0].endDate, "MM/dd/yyyy")}`}
+          {`${format(date.startDate as Date, "MM/dd/yyyy")} to ${format(date.endDate as Date, "MM/dd/yyyy")}`}
         </span>
         {openDate && (
           <DateRange
             editableDateInputs={true}
-            onChange={(item) => setDate([item.selection])}
+            onChange={(item) => setDate(item.selection)}
             moveRangeOnFirstSelection={false}
-            ranges={date}
+            ranges={[date]}
             className={styles.date}
             minDate={new Date()}
           />

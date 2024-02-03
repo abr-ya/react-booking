@@ -12,7 +12,7 @@ interface IGuests {
 }
 
 const Guests: FC<IGuests> = ({ data: { adult, children, room }, handler }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={searchStyles.searchItem}>
