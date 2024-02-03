@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 
-import { Header, Navbar } from "../components";
+import { Footer, Header, Navbar } from "../components";
 
 import styles from "./layout.module.css";
 
@@ -12,7 +12,10 @@ const Layout = () => {
     <div className={styles.layout}>
       <Navbar />
       <Header withSearch={pathname === "/"} />
-      <Outlet />
+      <div className={styles.content}>
+        <Outlet />
+      </div>
+      <Footer />
     </div>
   );
 };
