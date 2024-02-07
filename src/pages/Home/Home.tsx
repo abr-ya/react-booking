@@ -1,4 +1,4 @@
-import { Featured, FeaturedProperties, PropertyList } from "../../components";
+import { Featured, FeaturedProperties, MailList, PropertyList } from "../../components";
 import styles from "./home.module.css";
 
 const Home = () => {
@@ -9,8 +9,7 @@ const Home = () => {
       <PropertyList />
       <h1 className={styles.homeTitle}>Homes guests love</h1>
       <FeaturedProperties />
-      {/* todo: MailList */}
-      <h3>todo: MailList</h3>
+      <MailList />
     </div>
   );
 };
