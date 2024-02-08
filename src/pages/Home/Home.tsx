@@ -1,4 +1,4 @@
-import { Featured, FeaturedProperties, MailList, PropertyList } from "../../components";
+import { Featured, FeaturedProperties, MailList, PropertyList } from "./components";
 import styles from "./home.module.css";
 
 const Home = () => {

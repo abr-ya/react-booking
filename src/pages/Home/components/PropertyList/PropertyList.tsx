@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { IMG_BASE_PATH2 } from "../../constants";
-import { propertyList } from "../../data/propertyList";
+import { propertyList } from "@/data/propertyList";
+import { IMG_BASE_PATH2 } from "@/constants";
 
 import styles from "./propertyList.module.css";
 

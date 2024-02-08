@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { featuredData } from "../../data/featured";
-import { IMG_BASE_PATH1 } from "../../constants";
+import { featuredData } from "@/data/featured";
+import { IMG_BASE_PATH1 } from "@/constants";
 
 import styles from "./featured.module.css";
 

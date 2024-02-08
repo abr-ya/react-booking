@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { featuredProperties } from "../../data/featuredProperties";
+import { featuredProperties } from "@/data/featuredProperties";
 
 import styles from "./featuredProperties.module.css";
 
