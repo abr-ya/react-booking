@@ -1,13 +1,13 @@
 import { Route, createRoutesFromElements, createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Error404, Home, Hotel, HotelsList } from "./pages";
+import { Error404, Home, Hotel, SearchPage } from "./pages";
 import Layout from "./layout/Layout";
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route path="/" element={<Home />} />
-    <Route path="/hotels" element={<HotelsList />} />
-    <Route path="/hotels/:id" element={<Hotel />} />
+    <Route path="/search" element={<SearchPage />} />
+    <Route path="/hotel/:id" element={<Hotel />} />
     <Route path="*" element={<Error404 />} />
   </Route>,
 );

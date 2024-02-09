@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DateRange, Range } from "react-date-range";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { faBed, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +13,8 @@ import styles from "./search.module.css";
 import Guests from "./Guests";
 
 const Search = () => {
+  const navigate = useNavigate();
+
   const [destination, setDestination] = useState("");
 
   const [openDate, setOpenDate] = useState(false);
@@ -27,7 +30,9 @@ const Search = () => {
     room: 1,
   });
 
-  const submitHandler = () => console.log("search handler", destination, date, guests);
+  const submitHandler = () => {
+    navigate("/search", { state: { destination, date, guests } });
+  };
 
   const guestsHandler = (key: keyof IGuestsCount, isAdd?: boolean) => {
     setGuests((prev) => ({ ...prev, [key]: isAdd ? prev[key] + 1 : prev[key] - 1 }));
