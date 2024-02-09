@@ -10,3 +10,9 @@
   display: flex;
   gap: 20px;
 }
+
+.hotelList {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}

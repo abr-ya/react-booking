@@ -1,5 +1,13 @@
-const HotelList = () => {
-  return <div style={{ display: "flex", flex: 3 }}>HotelList</div>;
-};
+import HotelCard from "./HotelCard";
+import styles from "../search-page.module.css";
+
+const HotelList = () => (
+  <div className={styles.hotelList}>
+    {/* todo: add data! */}
+    <HotelCard />
+    <HotelCard />
+    <HotelCard />
+  </div>
+);
 
 export default HotelList;
