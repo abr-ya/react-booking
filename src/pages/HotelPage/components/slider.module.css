@@ -1,0 +1,15 @@
+.slider {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.sliderWrapper {
+  width: 33%;
+}
+
+.sliderImg {
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
