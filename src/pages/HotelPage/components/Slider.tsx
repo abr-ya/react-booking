@@ -1,9 +1,9 @@
+import { useState, MouseEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { hotelPhotos } from "@/data/hotelPhotos";
 import styles from "./slider.module.css";
-import { useState } from "react";
 
 const Slider = () => {
   const [slideNumber, setSlideNumber] = useState(0);
@@ -16,20 +16,21 @@ const Slider = () => {
 
   const lastPhoto = hotelPhotos.length - 1;
 
-  const moveLeftHandler = () => {
-    console.log("prev");
+  const moveLeftHandler = (e: MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
     setSlideNumber((prev) => (prev === 0 ? lastPhoto : prev - 1));
   };
 
-  const moveRightHandler = () => {
+  const moveRightHandler = (e: MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
     setSlideNumber((prev) => (prev === lastPhoto ? 0 : prev + 1));
   };
 
   return (
     <>
       {isOpen && (
-        <div className={styles.slider}>
-          <FontAwesomeIcon icon={faCircleXmark} className={styles.close} onClick={() => setIsOpen(false)} />
+        <div className={styles.slider} onClick={() => setIsOpen(false)}>
+          <FontAwesomeIcon icon={faCircleXmark} className={styles.close} />
           <FontAwesomeIcon icon={faCircleArrowLeft} className={styles.arrow} onClick={moveLeftHandler} />
           <div className={styles.sliderWrapper}>
             <img src={hotelPhotos[slideNumber].src} alt="" className={styles.sliderImg} />
