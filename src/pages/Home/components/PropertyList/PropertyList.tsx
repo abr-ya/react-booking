@@ -12,6 +12,8 @@ const PropertyList: FC = () => {
 
   if (loading) return <Loader />;
 
+  if (!data || !Array.isArray(data)) return <>...</>;
+
   const newData = data.map((el, index) => ({ ...propertyList[index], ...el }));
 
   return (
