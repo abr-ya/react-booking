@@ -7,7 +7,7 @@ import styles from "./featuredProperties.module.css";
 const FeaturedProperties: FC = () => (
   <div className={styles.fp}>
     {featuredProperties.map(({ title, imgSrc, city, price, rating }) => (
-      <div className={styles.fpItem}>
+      <div className={styles.fpItem} key={title}>
         <img src={imgSrc} alt={title} className={styles.fpImg} />
         <span className={styles.fpName}>{title}</span>
         <span className={styles.fpCity}>{city}</span>

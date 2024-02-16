@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const useFetch = (url: string) => {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -10,9 +12,9 @@ const useFetch = (url: string) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(url);
+        const res = await axios.get(`${API_URL}${url}`);
         setData(res.data);
-      } catch (err) {
+      } catch (err: unknown) {
         setError(err);
       }
       setLoading(false);
@@ -25,7 +27,7 @@ const useFetch = (url: string) => {
     try {
       const res = await axios.get(url);
       setData(res.data);
-    } catch (err) {
+    } catch (err: unknown) {
       setError(err);
     }
     setLoading(false);

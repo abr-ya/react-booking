@@ -7,21 +7,19 @@ import styles from "./featured.module.css";
 import useFetch from "@/hooks/useFetch";
 
 const Featured: FC = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
-  const { data, loading } = useFetch(`${API_URL}hotels/`); // countByCity?cities=milan,vilnius,prague
+  const CITIES = featuredData.map((item) => item.title.toLowerCase()).join();
+  const { data, loading } = useFetch(`hotels/countByCity?cities=${CITIES}`);
 
   if (loading) return "Loading please wait..."; // todo: loader
 
-  console.log(data);
-
   return (
     <div className={styles.featured}>
-      {featuredData.map((feat) => (
-        <div className={styles.featuredItem}>
-          <img src={`${IMG_BASE_PATH1}${feat.imgSrc}`} alt={feat.title} className={styles.featuredImg} />
+      {featuredData.map(({ title, imgSrc }, i) => (
+        <div className={styles.featuredItem} key={title}>
+          <img src={`${IMG_BASE_PATH1}${imgSrc}`} alt={title} className={styles.featuredImg} />
           <div className={styles.featuredTitles}>
-            <h1>{feat.title}</h1>
-            <h2>{feat.count} properties</h2>
+            <h1>{title}</h1>
+            <h2>{data[i]} properties</h2>
           </div>
         </div>
       ))}
