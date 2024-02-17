@@ -8,9 +8,9 @@ import { faBed, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-import { IGuestsCount } from "../../interfaces";
 import styles from "./search.module.css";
 import Guests from "./Guests";
+import { IGuestsCount } from "@/interfaces/form.interface";
 
 const Search = () => {
   const navigate = useNavigate();

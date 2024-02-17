@@ -2,9 +2,9 @@ import { FC, useState } from "react";
 import { faPerson } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { IGuestsCount } from "../../interfaces";
 import searchStyles from "./search.module.css";
 import styles from "./guests.module.css";
+import { IGuestsCount } from "@/interfaces/form.interface";
 
 interface IGuests {
   data: IGuestsCount;

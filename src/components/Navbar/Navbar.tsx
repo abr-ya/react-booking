@@ -10,8 +10,12 @@ const Navbar: FC = () => (
         reactbooking
       </Link>
       <div>
-        <button className={styles.navButton}>Register</button>
-        <button className={styles.navButton}>Login</button>
+        <Link to={"/register"}>
+          <button className={styles.navButton}>Register</button>
+        </Link>
+        <Link to={"/login"}>
+          <button className={styles.navButton}>Login</button>
+        </Link>
       </div>
     </div>
   </div>
