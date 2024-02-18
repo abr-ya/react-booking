@@ -17,7 +17,7 @@ const Header: FC<IHeader> = ({ withSearch }) => (
         <>
           <h1 className={styles.headerTitle}>A lifetime of discounts? It's Genius.</h1>
           <p className={styles.headerDesc}>
-            Get rewarded for your travels – unlock instant savings of 10% or more with a free Lamabooking account
+            Get rewarded for your travels – unlock instant savings of 10% or more with a free Reactbooking account
           </p>
           <button className={styles.headerBtn}>Sign in / Register</button>
           <Search />

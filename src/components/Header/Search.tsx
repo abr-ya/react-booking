@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { DateRange, Range } from "react-date-range";
 import { useNavigate } from "react-router-dom";
+import queryString from "query-string";
+import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format } from "date-fns";
-import { faBed, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { faBed } from "@fortawesome/free-solid-svg-icons";
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -11,18 +11,18 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import styles from "./search.module.css";
 import Guests from "./Guests";
 import { IGuestsCount } from "@/interfaces/form.interface";
+import DatesPicker, { IDateRange } from "./DatesPicker";
+import { DATE_FORMAT } from "@/constants";
 
 const Search = () => {
   const navigate = useNavigate();
 
   const [destination, setDestination] = useState("");
 
-  const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState<Range>({
-    startDate: new Date(),
-    endDate: new Date(),
-    key: "selection",
-  });
+  const today = moment().format(DATE_FORMAT);
+
+  // store data as DD.MM.yyyy
+  const [date, setDate] = useState<IDateRange>({ startDate: today, endDate: today });
 
   const [guests, setGuests] = useState<IGuestsCount>({
     adult: 1,
@@ -31,7 +31,8 @@ const Search = () => {
   });
 
   const submitHandler = () => {
-    navigate("/search", { state: { destination, date, guests } });
+    const searchParams = queryString.stringify({ destination, ...date, ...guests });
+    navigate(`/search?${searchParams}`, { state: { destination, date, guests } });
   };
 
   const guestsHandler = (key: keyof IGuestsCount, isAdd?: boolean) => {
@@ -51,22 +52,7 @@ const Search = () => {
         />
       </div>
       {/* Dates */}
-      <div className={styles.searchItem}>
-        <FontAwesomeIcon icon={faCalendarDays} className={styles.searchIcon} />
-        <span onClick={() => setOpenDate((prev) => !prev)} className={styles.searchText}>
-          {`${format(date.startDate as Date, "MM/dd/yyyy")} to ${format(date.endDate as Date, "MM/dd/yyyy")}`}
-        </span>
-        {openDate && (
-          <DateRange
-            editableDateInputs={true}
-            onChange={(item) => setDate(item.selection)}
-            moveRangeOnFirstSelection={false}
-            ranges={[date]}
-            className={styles.date}
-            minDate={new Date()}
-          />
-        )}
-      </div>
+      <DatesPicker date={date} setDate={setDate} />
       {/* Person */}
       <Guests data={guests} handler={guestsHandler} />
       <div className={styles.searchItem}>

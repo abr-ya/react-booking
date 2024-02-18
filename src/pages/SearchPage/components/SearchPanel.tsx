@@ -1,31 +1,42 @@
-import { format } from "date-fns";
 import { useState } from "react";
-import { DateRange } from "react-date-range";
+import { DateRange, RangeKeyDict } from "react-date-range";
 import { useLocation } from "react-router-dom";
 
 import styles from "./search-panel.module.css";
+import queryString from "query-string";
+import { IGuestsCount } from "@/interfaces/form.interface";
 
 const SearchPanel = () => {
-  const { state } = useLocation();
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+  console.log("queryParams", queryParams);
 
   const [openDate, setOpenDate] = useState(false);
-  const [destination, setDestination] = useState(state.destination);
-  const [date, setDate] = useState(state.date);
-  const [guests] = useState(state.guests); // todo: setter и использование!
+  const [destination, setDestination] = useState(queryParams?.destination || "");
+
+  // todo: setter и использование!
+  const [guests] = useState<IGuestsCount>({
+    adult: queryParams?.adult ? Number(queryParams?.adult) : 1,
+    children: queryParams?.children ? Number(queryParams?.children) : 1,
+    room: queryParams?.room ? Number(queryParams?.room) : 1,
+  });
+
+  const dateHandler = (dates: RangeKeyDict) => {
+    console.log(dates);
+  };
 
   return (
     <div className={styles.listSearch}>
       <h1 className={styles.lsTitle}>Search</h1>
       <div className={styles.lsItem}>
         <label>Destination</label>
-        <input placeholder={destination} type="text" onChange={(e) => setDestination(e.target.value)} />
+        <input placeholder={destination as string} type="text" onChange={(e) => setDestination(e.target.value)} />
       </div>
       <div className={styles.lsItem}>
         <label>Check-in Date</label>
-        <span onClick={() => setOpenDate(!openDate)}>
-          {`${format(date.startDate, "MM/dd/yyyy")} to ${format(date.endDate, "MM/dd/yyyy")}`}
-        </span>
-        {openDate && <DateRange onChange={(item) => setDate([item.selection])} minDate={new Date()} ranges={date} />}
+        <span onClick={() => setOpenDate(!openDate)}>{`${queryParams?.startDate} to ${queryParams?.endDate}`}</span>
+        {/* todo: add range={data} with format! */}
+        {openDate && <DateRange onChange={dateHandler} minDate={new Date()} />}
       </div>
       <div className={styles.lsItem}>
         <label>Options</label>
@@ -44,15 +55,15 @@ const SearchPanel = () => {
           </div>
           <div className={styles.lsOptionItem}>
             <span className={styles.lsOptionText}>Adult</span>
-            <input type="number" min={1} className={styles.lsOptionInput} placeholder={guests.adult} />
+            <input type="number" min={1} className={styles.lsOptionInput} defaultValue={guests.adult} />
           </div>
           <div className={styles.lsOptionItem}>
             <span className={styles.lsOptionText}>Children</span>
-            <input type="number" min={0} className={styles.lsOptionInput} placeholder={guests.children} />
+            <input type="number" min={0} className={styles.lsOptionInput} defaultValue={guests.children} />
           </div>
           <div className={styles.lsOptionItem}>
             <span className={styles.lsOptionText}>Room</span>
-            <input type="number" min={1} className={styles.lsOptionInput} placeholder={guests.room} />
+            <input type="number" min={1} className={styles.lsOptionInput} defaultValue={guests.room} />
           </div>
         </div>
       </div>
