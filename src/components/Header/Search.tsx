@@ -32,7 +32,10 @@ const Search = () => {
 
   const submitHandler = () => {
     const searchParams = queryString.stringify({ destination, ...date, ...guests });
-    navigate(`/search?${searchParams}`, { state: { destination, date, guests } });
+    navigate({
+      pathname: "/search",
+      search: `?${searchParams}`,
+    });
   };
 
   const guestsHandler = (key: keyof IGuestsCount, isAdd?: boolean) => {
