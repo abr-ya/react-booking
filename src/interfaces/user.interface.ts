@@ -1,7 +1,7 @@
-export interface IProfile {
+export interface IUserDetails {
   id: string;
   email: string;
   username: string;
-  address?: string;
-  phone?: string;
+  address?: string; // todo
+  phone?: string; // todo
 }

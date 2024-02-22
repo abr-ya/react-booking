@@ -5,7 +5,7 @@ import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./search.module.css";
 import { FC, useState } from "react";
-import { createRange } from "@/utils";
+import { createRange } from "@/utils/dateHelper";
 
 export interface IDateRange {
   startDate: string;

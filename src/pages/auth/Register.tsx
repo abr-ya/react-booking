@@ -5,9 +5,9 @@ import * as yup from "yup";
 
 import { Button, Heading, Input } from "../../components";
 
-import styles from "./Auth.module.css";
+import styles from "./auth.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/store";
-import { registerUser } from "../../app/user.slice";
+import { register as registerThunk } from "../../app/user.slice";
 
 interface IFormData {
   email: string;
@@ -41,7 +41,7 @@ const Register = () => {
 
   const onSubmit = (params: IFormData) => {
     console.log(params);
-    dispatch(registerUser(params));
+    dispatch(registerThunk(params));
   };
 
   // useEffect(() => {

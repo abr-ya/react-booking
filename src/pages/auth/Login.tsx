@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../app/store";
 import { login } from "../../app/user.slice";
 import { Button, Heading, Input } from "../../components";
 
-import styles from "./Auth.module.css";
+import styles from "./auth.module.css";
 
 interface IFormData {
   username: string;

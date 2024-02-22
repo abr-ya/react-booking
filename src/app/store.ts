@@ -9,9 +9,9 @@ const store = configureStore({
   },
 });
 
-// токен в LS
+// user LS
 store.subscribe(() => {
-  saveState({ jwt: store.getState().user.jwt }, JWT_PERSISTENT_STATE);
+  saveState({ user: store.getState().user }, JWT_PERSISTENT_STATE);
 });
 
 // здесь дока и purple совпадают!)
