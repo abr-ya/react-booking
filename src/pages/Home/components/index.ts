@@ -1,6 +1,6 @@
-import Featured from "./Featured/Featured";
 import FeaturedProperties from "./FeaturedProperties/FeaturedProperties";
 import MailList from "./MailList/MailList";
 import PropertyTypeList from "./PropertyTypeList/PropertyTypeList";
+import TopCities from "./TopCities/TopCities";
 
-export { Featured, FeaturedProperties, MailList, PropertyTypeList };
+export { FeaturedProperties, MailList, PropertyTypeList, TopCities };

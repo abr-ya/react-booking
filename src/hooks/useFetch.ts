@@ -15,6 +15,9 @@ const useFetch = (url: string) => {
         const res = await axios.get(`${API_URL}${url}`);
         setData(res.data);
       } catch (err: unknown) {
+        // todo разобраться, или уйти от использования этого хука!
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         setError(err);
       }
       setLoading(false);
@@ -28,6 +31,9 @@ const useFetch = (url: string) => {
       const res = await axios.get(url);
       setData(res.data);
     } catch (err: unknown) {
+      // todo разобраться, или уйти от использования этого хука!
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       setError(err);
     }
     setLoading(false);

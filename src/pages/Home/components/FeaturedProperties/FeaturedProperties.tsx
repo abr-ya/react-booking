@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import useFetch from "@/hooks/useFetch";
-import { featuredProperties } from "@/data/featuredProperties";
 
 import styles from "./featuredProperties.module.css";
 import { Loader } from "@/components";
@@ -13,14 +12,11 @@ const FeaturedProperties: FC = () => {
 
   if (!data || !Array.isArray(data)) return <>...</>;
 
-  // todo: Add photos to db and to card!
-  const newData = data.map((el, index) => ({ ...featuredProperties[index], ...el }));
-
   return (
     <div className={styles.fp}>
-      {newData.map(({ name, imgSrc, city, cheapestPrice, rating }) => (
+      {data.map(({ name, photos, city, cheapestPrice, rating }) => (
         <div className={styles.fpItem} key={name}>
-          <img src={imgSrc} alt={name} className={styles.fpImg} />
+          <img src={photos[0]} alt={name} className={styles.fpImg} />
           <span className={styles.fpName}>{name}</span>
           <span className={styles.fpCity}>{city}</span>
           <span className={styles.fpPrice}>Starting from ${cheapestPrice}</span>
