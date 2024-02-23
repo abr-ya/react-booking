@@ -11,3 +11,5 @@ export const createRange = (start: string, end: string) => {
 
   return range;
 };
+
+export const getToday = () => moment().format(DATE_FORMAT);

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { DateRange, RangeKeyDict } from "react-date-range";
-import { useLocation } from "react-router-dom";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./search-panel.module.css";
 import queryString from "query-string";
@@ -8,10 +7,14 @@ import { IGuestsCount } from "@/interfaces/form.interface";
 import { useAppDispatch } from "@/app/store";
 import { getHotels } from "@/app/hotel.slice";
 import { IHotelSearchParams } from "@/interfaces/hotel.interface";
+import { getToday } from "@/utils/dateHelper";
+import { DatesPicker, IDateRange, IDatesPickerStyles } from "@/components";
 
 const SearchPanel = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+
   const queryParams = queryString.parse(location.search);
   console.log("queryParams", queryParams);
   const { destination: city } = queryParams;
@@ -23,8 +26,13 @@ const SearchPanel = () => {
     dispatch(getHotels(searchParams));
   }, []);
 
-  const [openDate, setOpenDate] = useState(false);
   const [destination, setDestination] = useState(queryParams?.destination || "");
+
+  // store datas as DD.MM.yyyy
+  const [date, setDate] = useState<IDateRange>({ startDate: getToday(), endDate: getToday() });
+
+  const [min, setMin] = useState("");
+  const [max, setMax] = useState("");
 
   // todo: setter и использование!
   const [guests] = useState<IGuestsCount>({
@@ -33,8 +41,20 @@ const SearchPanel = () => {
     room: queryParams?.room ? Number(queryParams?.room) : 1,
   });
 
-  const dateHandler = (dates: RangeKeyDict) => {
-    console.log(dates);
+  const searchHandler = () => {
+    console.log("search", destination, min, max);
+    const searchParams = queryString.stringify({ destination, min, max });
+    navigate({
+      pathname: "/search",
+      search: `?${searchParams}`,
+    });
+  };
+
+  const datePickerStyles: IDatesPickerStyles = {
+    main: styles.lsItem,
+    icon: styles.dateIcon,
+    span: styles.dateText,
+    range: styles.dateRange,
   };
 
   return (
@@ -46,9 +66,7 @@ const SearchPanel = () => {
       </div>
       <div className={styles.lsItem}>
         <label>Check-in Date</label>
-        <span onClick={() => setOpenDate(!openDate)}>{`${queryParams?.startDate} to ${queryParams?.endDate}`}</span>
-        {/* todo: add range={data} with format! */}
-        {openDate && <DateRange onChange={dateHandler} minDate={new Date()} />}
+        <DatesPicker date={date} setDate={setDate} styles={datePickerStyles} />
       </div>
       <div className={styles.lsItem}>
         <label>Options</label>
@@ -57,13 +75,21 @@ const SearchPanel = () => {
             <span className={styles.lsOptionText}>
               Min price <small>per night</small>
             </span>
-            <input type="number" className={styles.lsOptionInput} />
+            <input
+              type="number"
+              className={styles.lsOptionInput}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setMin(e.target.value)}
+            />
           </div>
           <div className={styles.lsOptionItem}>
             <span className={styles.lsOptionText}>
               Max price <small>per night</small>
             </span>
-            <input type="number" className={styles.lsOptionInput} />
+            <input
+              type="number"
+              className={styles.lsOptionInput}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setMax(e.target.value)}
+            />
           </div>
           <div className={styles.lsOptionItem}>
             <span className={styles.lsOptionText}>Adult</span>
@@ -79,7 +105,7 @@ const SearchPanel = () => {
           </div>
         </div>
       </div>
-      <button>Search</button>
+      <button onClick={searchHandler}>Search</button>
     </div>
   );
 };

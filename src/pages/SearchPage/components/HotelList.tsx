@@ -11,7 +11,7 @@ const HotelList = () => {
   return (
     <div className={styles.hotelList}>
       {list.map((hotel) => (
-        <HotelCard hotel={hotel} />
+        <HotelCard hotel={hotel} key={hotel.id} />
       ))}
     </div>
   );

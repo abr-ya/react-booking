@@ -13,14 +13,14 @@
   max-width: 1024px;
 }
 
-.searchIcon {
-  color: lightgray;
-}
-
 .searchItem {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.searchIcon {
+  color: lightgray;
 }
 
 .searchInput {

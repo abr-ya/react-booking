@@ -25,13 +25,13 @@
   font-size: 12px;
 }
 
-.lsItem > input{
+.lsItem > input {
   height: 30px;
   border: none;
   padding: 5px;
 }
 
-.lsItem > span{
+.lsItem > span {
   height: 30px;
   padding: 5px;
   background-color: white;
@@ -64,4 +64,20 @@
   width: 100%;
   font-weight: 500;
   cursor: pointer;
+}
+
+
+.dateIcon {
+  display: none;
+}
+
+.dateText {
+  color: lightgray;
+  cursor: pointer;
+}
+
+.dateRange {
+  position: absolute;
+  top: 188px;
+  z-index: 2;
 }

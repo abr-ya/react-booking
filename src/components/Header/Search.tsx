@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,18 +10,16 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import styles from "./search.module.css";
 import Guests from "./Guests";
 import { IGuestsCount } from "@/interfaces/form.interface";
-import DatesPicker, { IDateRange } from "./DatesPicker";
-import { DATE_FORMAT } from "@/constants";
+import { getToday } from "@/utils/dateHelper";
+import { DatesPicker, IDateRange, IDatesPickerStyles } from "..";
 
 const Search = () => {
   const navigate = useNavigate();
 
   const [destination, setDestination] = useState("");
 
-  const today = moment().format(DATE_FORMAT);
-
-  // store data as DD.MM.yyyy
-  const [date, setDate] = useState<IDateRange>({ startDate: today, endDate: today });
+  // store datas as DD.MM.yyyy
+  const [date, setDate] = useState<IDateRange>({ startDate: getToday(), endDate: getToday() });
 
   const [guests, setGuests] = useState<IGuestsCount>({
     adult: 1,
@@ -42,6 +39,13 @@ const Search = () => {
     setGuests((prev) => ({ ...prev, [key]: isAdd ? prev[key] + 1 : prev[key] - 1 }));
   };
 
+  const datePickerStyles: IDatesPickerStyles = {
+    main: styles.searchItem,
+    icon: styles.searchIcon,
+    span: styles.searchText,
+    range: styles.date,
+  };
+
   return (
     <div className={styles.search}>
       {/* Place */}
@@ -55,7 +59,7 @@ const Search = () => {
         />
       </div>
       {/* Dates */}
-      <DatesPicker date={date} setDate={setDate} />
+      <DatesPicker date={date} setDate={setDate} styles={datePickerStyles} />
       {/* Person */}
       <Guests data={guests} handler={guestsHandler} />
       <div className={styles.searchItem}>
