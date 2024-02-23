@@ -17,14 +17,20 @@ const SearchPanel = () => {
 
   const queryParams = queryString.parse(location.search);
   console.log("queryParams", queryParams);
-  const { destination: city } = queryParams;
+  const { destination: city, min: qMin, max: qMax } = queryParams;
 
   const searchParams: IHotelSearchParams = {};
-  if (city) searchParams.city = city as string;
 
+  // getHotels if queryParams was changed == button Search
   useEffect(() => {
+    if (city) searchParams.city = city as string;
+    if (qMin && qMax) {
+      searchParams.min = qMin as string;
+      searchParams.max = qMax as string;
+    }
+
     dispatch(getHotels(searchParams));
-  }, []);
+  }, [city, qMin, qMax]);
 
   const [destination, setDestination] = useState(queryParams?.destination || "");
 

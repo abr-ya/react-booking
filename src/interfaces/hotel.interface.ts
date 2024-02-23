@@ -17,7 +17,7 @@ export interface IHotel {
 // todo: all params!
 export interface IHotelSearchParams {
   city?: string;
-  min?: number;
-  max?: number;
+  min?: string;
+  max?: string;
   limit?: number;
 }
