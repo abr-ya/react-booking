@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateRange, RangeKeyDict } from "react-date-range";
 import { useLocation } from "react-router-dom";
 
 import styles from "./search-panel.module.css";
 import queryString from "query-string";
 import { IGuestsCount } from "@/interfaces/form.interface";
+import { useAppDispatch } from "@/app/store";
+import { getHotels } from "@/app/hotel.slice";
 
 const SearchPanel = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
   console.log("queryParams", queryParams);
+
+  useEffect(() => {
+    dispatch(getHotels({}));
+  }, []);
 
   const [openDate, setOpenDate] = useState(false);
   const [destination, setDestination] = useState(queryParams?.destination || "");

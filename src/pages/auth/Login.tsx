@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,6 +8,7 @@ import { login } from "../../app/user.slice";
 import { Button, Heading, Input } from "../../components";
 
 import styles from "./auth.module.css";
+import { useEffect } from "react";
 
 interface IFormData {
   username: string;
@@ -20,17 +21,15 @@ const schema = yup.object({
 });
 
 const Login = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { loginErrorMessage } = useAppSelector((state) => state.user);
+  const { loginErrorMessage, token } = useAppSelector((state) => state.user);
 
-  // useEffect(() => {
-  //   if (jwt) {
-  //     dispatch(getProfile());
-  //     navigate("/");
-  //   }
-  // }, [navigate, jwt]);
+  useEffect(() => {
+    console.log("Your token is ", token, "go to main page...");
+    if (token) navigate("/");
+  }, [token]);
 
   const form = useForm<IFormData>({
     defaultValues: { username: "", password: "" },

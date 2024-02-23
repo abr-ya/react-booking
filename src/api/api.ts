@@ -1,5 +1,7 @@
+import { IHotelSearchParams } from "@/interfaces/hotel.interface";
 import axios from "./axios";
 import { ILoginParams, IRegisterParams } from "@/interfaces/auth.interface";
+import queryString from "query-string";
 
 export const baseUrl = import.meta.env.VITE_API_URL; // todo: add default?
 
@@ -10,3 +12,6 @@ export const loginReguest = (payload: ILoginParams) => {
 export const registerReguest = (payload: IRegisterParams) => {
   return axios.post(`${baseUrl}auth/register`, payload);
 };
+
+export const getHotelsReguest = (params: IHotelSearchParams) =>
+  axios.get(`${baseUrl}hotels?${queryString.stringify(params)}`);

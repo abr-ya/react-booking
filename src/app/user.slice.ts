@@ -24,7 +24,7 @@ const initialState: IUserState = {
   details: userFromLS ? userFromLS.details : initialUserDetails,
 };
 
-console.log("userInitialState", initialState);
+console.log("userInitialState, todo: UpdateHeader!", initialState);
 
 export const login = createAsyncThunk<IAuthResponse, ILoginParams>(
   "user/login",

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import hotelReducer from "./hotel.slice";
 import userReducer from "./user.slice";
 import { saveState } from "./storage";
 import { LOCAL_STORAGE_KEY } from "@/constants";
 
 const store = configureStore({
   reducer: {
+    hotel: hotelReducer,
     user: userReducer,
   },
 });

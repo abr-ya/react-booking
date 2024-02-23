@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,6 +8,7 @@ import { Button, Heading, Input } from "../../components";
 import styles from "./auth.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { register as registerThunk } from "../../app/user.slice";
+import { useEffect } from "react";
 
 interface IFormData {
   email: string;
@@ -22,10 +23,15 @@ const schema = yup.object({
 });
 
 const Register = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { registerErrorMessage } = useAppSelector((state) => state.user);
+  const { registerErrorMessage, token } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    console.log("Your token is ", token, "go to main page...");
+    if (token) navigate("/");
+  }, [token]);
 
   const form = useForm<IFormData>({
     defaultValues: {
