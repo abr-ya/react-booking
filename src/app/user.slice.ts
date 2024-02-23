@@ -5,8 +5,7 @@ import { typedCatchHandler } from "@/utils/rtkHelper";
 import { IUserDetails } from "../interfaces/user.interface";
 import { loadState } from "./storage";
 import { ILoginParams, IAuthResponse, IRegisterParams } from "../interfaces/auth.interface";
-
-export const JWT_PERSISTENT_STATE = "userData";
+import { LOCAL_STORAGE_KEY } from "@/constants";
 
 export interface IUserState {
   token: string | null;
@@ -17,11 +16,12 @@ export interface IUserState {
 }
 
 const initialUserDetails = { id: "", email: "", username: "" };
+const userFromLS = loadState(LOCAL_STORAGE_KEY)?.user;
 
 const initialState: IUserState = {
-  token: loadState(JWT_PERSISTENT_STATE)?.token ?? null,
-  isAdmin: loadState(JWT_PERSISTENT_STATE)?.isAdmin ?? false,
-  details: loadState(JWT_PERSISTENT_STATE)?.details ?? initialUserDetails,
+  token: userFromLS ? userFromLS.token : null,
+  isAdmin: userFromLS ? userFromLS.isAdmin : false,
+  details: userFromLS ? userFromLS.details : initialUserDetails,
 };
 
 console.log("userInitialState", initialState);

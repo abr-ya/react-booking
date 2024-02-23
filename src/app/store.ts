@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import userReducer, { JWT_PERSISTENT_STATE } from "./user.slice";
+import userReducer from "./user.slice";
 import { saveState } from "./storage";
+import { LOCAL_STORAGE_KEY } from "@/constants";
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,7 @@ const store = configureStore({
 
 // user LS
 store.subscribe(() => {
-  saveState({ user: store.getState().user }, JWT_PERSISTENT_STATE);
+  saveState({ user: store.getState().user }, LOCAL_STORAGE_KEY);
 });
 
 // здесь дока и purple совпадают!)

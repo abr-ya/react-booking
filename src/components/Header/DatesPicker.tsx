@@ -21,7 +21,7 @@ const DatesPicker: FC<IDates> = ({ date, setDate }) => {
   const [openDate, setOpenDate] = useState(false);
 
   const dateHandler = (dates: RangeKeyDict) => {
-    console.log(dates);
+    // console.log(dates); // dates as Date!
     setDate({
       startDate: format(dates.selection.startDate as Date, "dd.MM.yyyy"),
       endDate: format(dates.selection.endDate as Date, "dd.MM.yyyy"),

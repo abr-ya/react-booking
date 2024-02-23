@@ -1,12 +1,12 @@
 import axios from "axios";
 import { loadState } from "@/app/storage";
-import { JWT_PERSISTENT_STATE } from "@/app/user.slice";
+import { LOCAL_STORAGE_KEY } from "@/constants";
 
 axios.interceptors.request.use(
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   async (config) => {
-    const token = loadState(JWT_PERSISTENT_STATE)?.jwt; // token from LS!
+    const token = loadState(LOCAL_STORAGE_KEY)?.user?.token; // token from LS!
     if (!token) return config;
 
     return {
