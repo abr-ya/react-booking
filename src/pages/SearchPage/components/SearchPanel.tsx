@@ -7,15 +7,20 @@ import queryString from "query-string";
 import { IGuestsCount } from "@/interfaces/form.interface";
 import { useAppDispatch } from "@/app/store";
 import { getHotels } from "@/app/hotel.slice";
+import { IHotelSearchParams } from "@/interfaces/hotel.interface";
 
 const SearchPanel = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
   console.log("queryParams", queryParams);
+  const { destination: city } = queryParams;
+
+  const searchParams: IHotelSearchParams = {};
+  if (city) searchParams.city = city as string;
 
   useEffect(() => {
-    dispatch(getHotels({}));
+    dispatch(getHotels(searchParams));
   }, []);
 
   const [openDate, setOpenDate] = useState(false);

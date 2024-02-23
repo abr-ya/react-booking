@@ -1,13 +1,20 @@
 import HotelCard from "./HotelCard";
 import styles from "../search-page.module.css";
+import { useAppSelector } from "@/app/store";
+import { Loader } from "@/components";
 
-const HotelList = () => (
-  <div className={styles.hotelList}>
-    {/* todo: add data! */}
-    <HotelCard />
-    <HotelCard />
-    <HotelCard />
-  </div>
-);
+const HotelList = () => {
+  const { list, hotelLoading } = useAppSelector((state) => state.hotel);
+
+  if (hotelLoading) return <Loader />;
+
+  return (
+    <div className={styles.hotelList}>
+      {list.map((hotel) => (
+        <HotelCard hotel={hotel} />
+      ))}
+    </div>
+  );
+};
 
 export default HotelList;

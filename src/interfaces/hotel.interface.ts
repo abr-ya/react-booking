@@ -11,10 +11,12 @@ export interface IHotel {
   rooms: string[];
   cheapestPrice: number;
   featured: boolean;
+  rating?: number;
 }
 
 // todo: all params!
 export interface IHotelSearchParams {
+  city?: string;
   min?: number;
   max?: number;
   limit?: number;
