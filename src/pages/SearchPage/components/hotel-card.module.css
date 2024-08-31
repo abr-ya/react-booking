@@ -19,11 +19,16 @@
   flex-direction: column;
   gap: 10px;
   flex: 2;
+
+  & a {
+    text-decoration: none;
+  }
 }
 
 .hotelTitle {
   font-size: 20px;
   color: #0071c2;
+  margin-top: 0;
 }
 
 .hotelDistance {

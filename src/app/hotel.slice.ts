@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getHotelDetailReguest, getHotelsReguest } from "@/api/api";
 import { typedCatchHandler } from "@/utils/rtkHelper";
 import { IHotel, IHotelSearchParams } from "@/interfaces/hotel.interface";
+import { normalizeHotelDetail } from "./normalize";
 
 export interface IHotelState {
   list: IHotel[];
@@ -63,7 +64,7 @@ export const hotelSlice = createSlice({
       })
       .addCase(getHotel.fulfilled, (state, action) => {
         state.hotelLoading = false;
-        state.detail = action.payload;
+        state.detail = normalizeHotelDetail(action.payload);
       })
       .addCase(getHotel.rejected, (state, action) => {
         state.hotelLoading = false;

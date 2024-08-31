@@ -17,7 +17,9 @@ const HotelCard: FC<IHotelCard> = ({ hotel: { id, name, distance, photos, title,
     )}
 
     <div className={styles.hotelDesc}>
-      <h1 className={styles.hotelTitle}>{name}</h1>
+      <Link to={`/hotel/${id}`}>
+        <h1 className={styles.hotelTitle}>{name}</h1>
+      </Link>
       <span className={styles.hotelDistance}>{distance}m from center</span>
       <span className={styles.hotelTaxiOp}>Free airport taxi</span>
       <span className={styles.hotelSubtitle}>{title}</span>

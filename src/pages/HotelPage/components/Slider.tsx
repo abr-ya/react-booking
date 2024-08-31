@@ -1,11 +1,15 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, FC } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { hotelPhotos } from "@/data/hotelPhotos";
 import styles from "./slider.module.css";
 
-const Slider = () => {
+interface ISlider {
+  photos: string[];
+}
+
+const Slider: FC<ISlider> = ({ photos }) => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,7 +18,7 @@ const Slider = () => {
     setIsOpen(true);
   };
 
-  const lastPhoto = hotelPhotos.length - 1;
+  const lastPhoto = photos.length - 1;
 
   const moveLeftHandler = (e: MouseEvent<SVGSVGElement>) => {
     e.stopPropagation();
@@ -33,15 +37,15 @@ const Slider = () => {
           <FontAwesomeIcon icon={faCircleXmark} className={styles.close} />
           <FontAwesomeIcon icon={faCircleArrowLeft} className={styles.arrow} onClick={moveLeftHandler} />
           <div className={styles.sliderWrapper}>
-            <img src={hotelPhotos[slideNumber].src} alt="" className={styles.sliderImg} />
+            <img src={photos[slideNumber]} alt="" className={styles.sliderImg} />
           </div>
           <FontAwesomeIcon icon={faCircleArrowRight} className={styles.arrow} onClick={moveRightHandler} />
         </div>
       )}
       <div className={styles.preview}>
-        {hotelPhotos.map((photo, i) => (
+        {photos.map((photo, i) => (
           <div className={styles.previewWrapper} key={i}>
-            <img onClick={() => openHandler(i)} src={photo.src} alt="" className={styles.previewImg} />
+            <img onClick={() => openHandler(i)} src={photo} alt="" className={styles.previewImg} />
           </div>
         ))}
       </div>
