@@ -15,12 +15,11 @@ const SearchPanel = () => {
   const navigate = useNavigate();
 
   const queryParams = queryString.parse(location.search);
-  console.log("queryParams", queryParams);
   const { destination: city, min: qMin, max: qMax } = queryParams;
 
   const searchParams: IHotelSearchParams = {};
 
-  // getHotels if queryParams was changed == submit form
+  // submit form => queryParams was changed => getHotels
   useEffect(() => {
     if (city) searchParams.city = city as string;
     if (qMin && qMax) {
@@ -45,7 +44,6 @@ const SearchPanel = () => {
 
   const searchHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("search", destination, min, max, adult, children, room);
     const allParams = { destination, min, max, adult, children, room };
     const selectedParams = {};
     for (const [key, value] of Object.entries(allParams)) {

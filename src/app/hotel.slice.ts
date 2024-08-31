@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { getHotelsReguest } from "@/api/api";
+import { getHotelDetailReguest, getHotelsReguest } from "@/api/api";
 import { typedCatchHandler } from "@/utils/rtkHelper";
 import { IHotel, IHotelSearchParams } from "@/interfaces/hotel.interface";
 
@@ -29,6 +29,18 @@ export const getHotels = createAsyncThunk<IHotel[], IHotelSearchParams>(
   },
 );
 
+export const getHotel = createAsyncThunk<IHotel, { id: string }>(
+  "hotel/getHotel",
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const { data } = await getHotelDetailReguest(id);
+      return data;
+    } catch (error) {
+      return typedCatchHandler(error, rejectWithValue, "hotel/getHotel");
+    }
+  },
+);
+
 export const hotelSlice = createSlice({
   name: "hotel",
   initialState,
@@ -43,6 +55,17 @@ export const hotelSlice = createSlice({
         state.list = action.payload;
       })
       .addCase(getHotels.rejected, (state, action) => {
+        state.hotelLoading = false;
+        state.hotelErrorMessage = action.error.message;
+      })
+      .addCase(getHotel.pending, (state) => {
+        state.hotelLoading = true;
+      })
+      .addCase(getHotel.fulfilled, (state, action) => {
+        state.hotelLoading = false;
+        state.detail = action.payload;
+      })
+      .addCase(getHotel.rejected, (state, action) => {
         state.hotelLoading = false;
         state.hotelErrorMessage = action.error.message;
       });
