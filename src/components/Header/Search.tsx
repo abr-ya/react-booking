@@ -12,9 +12,12 @@ import Guests from "./Guests";
 import { IGuestsCount } from "@/interfaces/form.interface";
 import { getToday } from "@/utils/dateHelper";
 import { DatesPicker, IDateRange, IDatesPickerStyles } from "..";
+import { useAppDispatch } from "@/app/store";
+import { setDates } from "@/app/search.slice";
 
 const Search = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [destination, setDestination] = useState("");
 
@@ -29,6 +32,8 @@ const Search = () => {
 
   const submitHandler = () => {
     const searchParams = queryString.stringify({ destination, ...date, ...guests });
+    dispatch(setDates(date));
+
     navigate({
       pathname: "/search",
       search: `?${searchParams}`,

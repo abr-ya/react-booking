@@ -13,3 +13,10 @@ export const createRange = (start: string, end: string) => {
 };
 
 export const getToday = () => moment().format(DATE_FORMAT);
+
+export const getDateDaysDiff = (date1: string, date2: string) => {
+  const str1 = new Date(moment(date1, DATE_FORMAT).toString());
+  const str2 = new Date(moment(date2, DATE_FORMAT).toString());
+
+  return moment(str1).diff(moment(str2), "days");
+};
