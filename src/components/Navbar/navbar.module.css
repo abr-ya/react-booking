@@ -27,3 +27,8 @@
   cursor: pointer;
   color: #003580;
 }
+
+.userButtons {
+  display: flex;
+  align-items: center;
+}
