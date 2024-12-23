@@ -14,6 +14,7 @@ const HotelPage = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { detail, hotelLoading } = useAppSelector((state) => state.hotel);
+  const { daysDiff } = useAppSelector((state) => state.search);
 
   useEffect(() => {
     if (id) dispatch(getHotel({ id }));
@@ -37,7 +38,7 @@ const HotelPage = () => {
           Book a stay over ${cheapestPrice} at this property and get a free airport taxi
         </span>
         <Slider photos={photos} />
-        <HotelDetails desc={desc} />
+        <HotelDetails desc={desc} cheapestPrice={cheapestPrice} night={daysDiff || 0} />
       </div>
     </div>
   );
