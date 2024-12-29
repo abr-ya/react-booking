@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 import { useAppDispatch, useAppSelector } from "@/app/store";
 import { getHotel } from "@/app/hotel.slice";
+import { ReserveModal } from "@/components";
 
 import styles from "./hotel-page.module.css";
 import Slider from "./components/Slider";
@@ -16,6 +17,8 @@ const HotelPage = () => {
   const { detail, hotelLoading } = useAppSelector((state) => state.hotel);
   const { daysDiff } = useAppSelector((state) => state.search);
 
+  const [openReserveModal, setOpenReserveModal] = useState(false);
+
   useEffect(() => {
     if (id) dispatch(getHotel({ id }));
   }, []);
@@ -24,23 +27,33 @@ const HotelPage = () => {
 
   const { address, cheapestPrice, desc, distance, name, photos } = detail;
 
+  const reserveButtonHandler = () => {
+    // todo: add login check!
+    setOpenReserveModal(true);
+  };
+
   return (
-    <div className={styles.hotelContainer}>
-      <div className={styles.hotelWrapper}>
-        <button className={styles.bookNow}>Reserve or Book Now!</button>
-        <h1 className={styles.hotelTitle}>{name}</h1>
-        <div className={styles.hotelAddress}>
-          <FontAwesomeIcon icon={faLocationDot} />
-          <span>{address}</span>
+    <>
+      {openReserveModal && <ReserveModal closeModal={() => setOpenReserveModal(false)} hotelId={id} />}
+      <div className={styles.hotelContainer}>
+        <div className={styles.hotelWrapper}>
+          <button className={styles.bookNow} onClick={reserveButtonHandler}>
+            Reserve Now!
+          </button>
+          <h1 className={styles.hotelTitle}>{name}</h1>
+          <div className={styles.hotelAddress}>
+            <FontAwesomeIcon icon={faLocationDot} />
+            <span>{address}</span>
+          </div>
+          <span className={styles.hotelDistance}>Excellent location – {distance}m from center</span>
+          <span className={styles.hotelPriceHighlight}>
+            Book a stay over ${cheapestPrice} at this property and get a free airport taxi
+          </span>
+          <Slider photos={photos} />
+          <HotelDetails desc={desc} cheapestPrice={cheapestPrice} night={daysDiff || 0} />
         </div>
-        <span className={styles.hotelDistance}>Excellent location – {distance}m from center</span>
-        <span className={styles.hotelPriceHighlight}>
-          Book a stay over ${cheapestPrice} at this property and get a free airport taxi
-        </span>
-        <Slider photos={photos} />
-        <HotelDetails desc={desc} cheapestPrice={cheapestPrice} night={daysDiff || 0} />
       </div>
-    </div>
+    </>
   );
 };
 

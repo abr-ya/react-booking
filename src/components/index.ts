@@ -6,6 +6,7 @@ import Heading from "./Heading/Heading";
 import Input from "./Input/Input";
 import Loader from "./Loader/Loader";
 import Navbar from "./Navbar/Navbar";
+import ReserveModal from "./ReserveModal/ReserveModal";
 
 export {
   Button,
@@ -18,4 +19,5 @@ export {
   Input,
   Loader,
   Navbar,
+  ReserveModal,
 };
