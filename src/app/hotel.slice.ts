@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { getHotelDetailReguest, getHotelsReguest } from "@/api/api";
 import { typedCatchHandler } from "@/utils/rtkHelper";
-import { IHotel, IHotelSearchParams } from "@/interfaces/hotel.interface";
+import { IHotel, IHotelDetail, IHotelSearchParams } from "@/interfaces/hotel.interface";
 import { normalizeHotelDetail } from "./normalize";
 
 export interface IHotelState {
   list: IHotel[];
-  detail: IHotel | null;
+  detail: IHotelDetail | null;
   hotelLoading: boolean;
   hotelErrorMessage?: string;
 }
@@ -30,7 +30,7 @@ export const getHotels = createAsyncThunk<IHotel[], IHotelSearchParams>(
   },
 );
 
-export const getHotel = createAsyncThunk<IHotel, { id: string }>(
+export const getHotel = createAsyncThunk<IHotelDetail, { id: string }>(
   "hotel/getHotel",
   async ({ id }, { rejectWithValue }) => {
     try {

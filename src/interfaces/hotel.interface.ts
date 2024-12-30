@@ -1,3 +1,5 @@
+import { IRoom } from "./room.interface";
+
 export interface IHotel {
   id: string;
   name: string;
@@ -12,6 +14,10 @@ export interface IHotel {
   cheapestPrice: number;
   featured: boolean;
   rating?: number;
+}
+
+export interface IHotelDetail extends Omit<IHotel, "rooms"> {
+  rooms: IRoom[];
 }
 
 // todo: all params!

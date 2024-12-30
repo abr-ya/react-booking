@@ -25,7 +25,7 @@ const HotelPage = () => {
 
   if (!detail || hotelLoading) return <>... loading / error ...</>;
 
-  const { address, cheapestPrice, desc, distance, name, photos } = detail;
+  const { address, cheapestPrice, desc, distance, name, rooms, photos } = detail;
 
   const reserveButtonHandler = () => {
     // todo: add login check!
@@ -34,7 +34,7 @@ const HotelPage = () => {
 
   return (
     <>
-      {openReserveModal && <ReserveModal closeModal={() => setOpenReserveModal(false)} hotelId={id} />}
+      {openReserveModal && <ReserveModal closeModal={() => setOpenReserveModal(false)} hotelId={id} data={rooms} />}
       <div className={styles.hotelContainer}>
         <div className={styles.hotelWrapper}>
           <button className={styles.bookNow} onClick={reserveButtonHandler}>

@@ -3,13 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./reserve.module.css";
+import { IRoom } from "@/interfaces/room.interface";
 
 interface IReserveModal {
   closeModal: () => void;
+  data: IRoom[];
   hotelId?: string;
 }
 
-const ReserveModal: FC<IReserveModal> = ({ closeModal }) => {
+const ReserveModal: FC<IReserveModal> = ({ closeModal, data }) => {
+  console.log("Rooms:", data);
+
   const handleClick = async () => {
     console.log("Reserve Now click");
   };
