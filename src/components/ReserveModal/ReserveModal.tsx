@@ -1,34 +1,53 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
+import axios from "@/api/axios";
+import { baseUrl } from "@/api/api";
+import { IRoom, IRoomNumber } from "@/interfaces/room.interface";
+import { ISearcState } from "@/app/search.slice";
+import { getTimestampsFromRange } from "@/utils/dateHelper";
+
 import styles from "./reserve.module.css";
-import { IRoom } from "@/interfaces/room.interface";
 
 interface IReserveModal {
   closeModal: () => void;
   data: IRoom[];
   hotelId?: string;
+  search: ISearcState;
 }
 
-const ReserveModal: FC<IReserveModal> = ({ closeModal, data }) => {
+const ReserveModal: FC<IReserveModal> = ({ closeModal, data, search: { date1start, date2end } }) => {
+  const [selectedRoomsIDs, setSelectedRoomsIDs] = useState<string[]>([]);
   console.log("Rooms:", data);
 
-  const isRoomAvailable = () => {
-    // todo date checking! roomNumber: IRoomNumber
-    const isFoundBookings = false;
+  const userDatesList = getTimestampsFromRange(date1start, date2end);
+  console.log(userDatesList);
 
-    return !isFoundBookings;
+  const isRoomAvailable = (roomNumber: IRoomNumber) => {
+    const hasBookings = roomNumber.bookedDates.some((date) => userDatesList.includes(new Date(date).getTime()));
+
+    return !hasBookings;
   };
 
   const handleRoomClick = (e: { target: HTMLInputElement }) => {
     const checked = e.target.checked;
     const value = e.target.value;
     console.log(checked, value);
+    setSelectedRoomsIDs((prev) => (checked ? [...prev, value] : prev.filter((item) => item !== value)));
   };
 
-  const handleReserveClick = async () => {
+  const handleReserveClick = async (rooms: string[]) => {
     console.log("Reserve Now click");
+    try {
+      const res = await Promise.all(
+        rooms.map((roomId) => axios.put(`${baseUrl}rooms/booking/${roomId}`, { dates: userDatesList })),
+      );
+      console.log("Booking finished!", res); // todo: Result message, Refresh or Navigate
+      closeModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -54,14 +73,14 @@ const ReserveModal: FC<IReserveModal> = ({ closeModal, data }) => {
                     type="checkbox"
                     value={roomNumber._id}
                     onChange={handleRoomClick}
-                    disabled={!isRoomAvailable()}
+                    disabled={!isRoomAvailable(roomNumber)}
                   />
                 </div>
               ))}
             </div>
           </div>
         ))}
-        <button onClick={handleReserveClick} className={styles.button}>
+        <button onClick={() => handleReserveClick(selectedRoomsIDs)} className={styles.button}>
           Reserve Now!
         </button>
       </div>

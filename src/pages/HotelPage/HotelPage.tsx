@@ -15,7 +15,8 @@ const HotelPage = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { detail, hotelLoading } = useAppSelector((state) => state.hotel);
-  const { daysDiff } = useAppSelector((state) => state.search);
+  const searchData = useAppSelector((state) => state.search);
+  const { daysDiff } = searchData;
 
   const [openReserveModal, setOpenReserveModal] = useState(false);
 
@@ -34,7 +35,9 @@ const HotelPage = () => {
 
   return (
     <>
-      {openReserveModal && <ReserveModal closeModal={() => setOpenReserveModal(false)} hotelId={id} data={rooms} />}
+      {openReserveModal && (
+        <ReserveModal closeModal={() => setOpenReserveModal(false)} hotelId={id} data={rooms} search={searchData} />
+      )}
       <div className={styles.hotelContainer}>
         <div className={styles.hotelWrapper}>
           <button className={styles.bookNow} onClick={reserveButtonHandler}>
