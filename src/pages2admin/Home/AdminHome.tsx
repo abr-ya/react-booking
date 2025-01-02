@@ -25,12 +25,16 @@ const AdminHome = () => {
     <div className={styles.homeContainer}>
       <h1 className={styles.homeTitle}>Admin Home Page</h1>
       <p>{isAdmin ? "Hello, Admin! Our hotels list:" : "Sorry, you are not admin!"}</p>
-      <ul>
-        {list.map((hotel) => (
-          <HotelItem data={hotel} />
-        ))}
-      </ul>
-      <button onClick={createButtonHandler}>Create New Hotel</button>
+      {isAdmin ? (
+        <>
+          <ul>
+            {list.map((hotel) => (
+              <HotelItem data={hotel} />
+            ))}
+          </ul>
+          <button onClick={createButtonHandler}>Create New Hotel</button>
+        </>
+      ) : null}
     </div>
   );
 };
