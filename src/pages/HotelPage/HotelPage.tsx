@@ -26,7 +26,7 @@ const HotelPage = () => {
 
   if (!detail || hotelLoading) return <>... loading / error ...</>;
 
-  const { address, cheapestPrice, desc, distance, name, rooms, photos } = detail;
+  const { address, cheapestPrice, desc, distance, name, rooms, photos, title } = detail;
 
   const reserveButtonHandler = () => {
     // todo: add login check!
@@ -53,7 +53,7 @@ const HotelPage = () => {
             Book a stay over ${cheapestPrice} at this property and get a free airport taxi
           </span>
           <Slider photos={photos} />
-          <HotelDetails desc={desc} cheapestPrice={cheapestPrice} night={daysDiff || 0} />
+          <HotelDetails desc={desc} cheapestPrice={cheapestPrice} night={daysDiff || 0} title={title} />
         </div>
       </div>
     </>
