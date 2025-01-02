@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 
 import { createHotel } from "@/api/api";
 import noImage from "/no_image.png";
+import folderImage from "/folder-arrow.png";
 
 import { hotelInputs } from "./formSorce";
 import "./newHotel.scss";
@@ -65,7 +66,10 @@ const CreateHotel = () => {
           <div className="right">
             <form>
               <div className="formInput">
-                <label htmlFor="file">Image:</label>
+                <label htmlFor="file" className="pointer">
+                  Image(s)
+                  <img src={folderImage} alt="Add photos" width={80} height={80} />
+                </label>
                 <input
                   type="file"
                   id="file"

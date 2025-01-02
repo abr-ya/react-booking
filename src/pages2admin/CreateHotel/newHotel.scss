@@ -40,7 +40,11 @@
           gap: 30px;
           justify-content: space-between;
 
-          .selectRooms{
+          .pointer {
+            cursor: pointer;
+          }
+
+          .selectRooms {
             width: 100%;
 
             select{
