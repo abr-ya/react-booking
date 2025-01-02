@@ -1,10 +1,13 @@
 import { FormEvent, useState } from "react";
 
+import { createHotel } from "@/api/api";
 import noImage from "/no_image.png";
 
 import { hotelInputs } from "./formSorce";
 import "./newHotel.scss";
+import { ICloudinaryCreateResponse } from "@/interfaces/service.interface";
 
+// todo: to CONST / ENV
 const CLOUD_API = "https://api.cloudinary.com/v1_1/";
 const CLOUD_NAME = "abr";
 const CLOUD_PRESET = "booking";
@@ -31,16 +34,19 @@ const CreateHotel = () => {
             const body = new FormData();
             body.append("file", file);
             body.append("upload_preset", CLOUD_PRESET);
-            const uploadRes = await fetch(`${CLOUD_API}${CLOUD_NAME}/upload`, { method: "POST", body });
+            const uploadRes = await fetch(`${CLOUD_API}${CLOUD_NAME}/image/upload`, { method: "POST", body });
+            const typedRes: ICloudinaryCreateResponse = await uploadRes.json();
 
-            return uploadRes.url;
+            return typedRes.url;
           }),
         );
       } else {
         console.log("Photos not selected!");
       }
       // prepare and send data
-      console.log(info, photos);
+      console.log("will create hotel: ", info, photos);
+      const payload = { ...info, photos };
+      await createHotel(payload).then((res) => console.log(res));
     } catch (err) {
       console.log(err);
     }
