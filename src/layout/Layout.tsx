@@ -6,6 +6,16 @@ import styles from "./layout.module.css";
 
 const Layout = () => {
   const { pathname } = useLocation();
+  const isAdminPanel = pathname.startsWith("/admin/");
+
+  if (isAdminPanel)
+    return (
+      <div className={styles.layout}>
+        <div className={styles.content}>
+          <Outlet />
+        </div>
+      </div>
+    );
 
   return (
     <div className={styles.layout}>

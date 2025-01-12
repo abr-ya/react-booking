@@ -16,4 +16,7 @@ export const registerReguest = (payload: IRegisterParams) => {
 export const getHotelsReguest = (params: IHotelSearchParams) =>
   axios.get(`${baseUrl}hotels?${queryString.stringify(params)}`);
 
-export const getHotelDetailReguest = (id: string) => axios.get(`${baseUrl}hotels/${id}`);
+export const getHotelDetailReguest = (id: string) => axios.get(`${baseUrl}hotels/with-rooms/${id}`);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createHotel = (payload: any) => axios.post(`${baseUrl}hotels`, payload);

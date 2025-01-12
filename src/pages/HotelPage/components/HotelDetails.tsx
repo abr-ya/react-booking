@@ -5,12 +5,13 @@ interface IHotelDetails {
   cheapestPrice: number;
   desc: string;
   night: number;
+  title: string;
 }
 
-const HotelDetails: FC<IHotelDetails> = ({ cheapestPrice, desc, night }) => (
+const HotelDetails: FC<IHotelDetails> = ({ cheapestPrice, desc, night, title }) => (
   <div className={styles.hotelDetails}>
     <div className={styles.hotelDetailsTexts}>
-      <h1 className={styles.title}>Stay in the heart of City</h1>
+      <h1 className={styles.title}>{title}</h1>
       <p className={styles.description}>{desc}</p>
     </div>
     <div className={styles.hotelDetailsPrice}>

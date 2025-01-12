@@ -2,6 +2,7 @@ import { Route, createRoutesFromElements, createBrowserRouter, RouterProvider } 
 
 import { Error404, Home, HotelPage, Login, Register, SearchPage } from "./pages";
 import Layout from "./layout/Layout";
+import { AdminHome, CreateHotel } from "./pages2admin";
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
@@ -11,6 +12,8 @@ const routes = createRoutesFromElements(
     <Route path="/register" element={<Register />} />
     <Route path="/search" element={<SearchPage />} />
     <Route path="*" element={<Error404 />} />
+    <Route path="/admin" element={<AdminHome />} />
+    <Route path="/admin/createhotel" element={<CreateHotel />} />
   </Route>,
 );
 const router = createBrowserRouter(routes);

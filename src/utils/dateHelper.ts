@@ -20,3 +20,20 @@ export const getDateDaysDiff = (date1: string, date2: string) => {
 
   return moment(str1).diff(moment(str2), "days");
 };
+
+export const getTimestampsFromRange = (date1: string, date2: string) => {
+  const str1 = new Date(moment(date1, DATE_FORMAT).toString());
+  const str2 = new Date(moment(date2, DATE_FORMAT).toString());
+
+  const date = new Date(str1.getTime());
+
+  const dates = [];
+
+  while (date <= str2) {
+    dates.push(new Date(date).getTime());
+    date.setDate(date.getDate() + 1);
+  }
+  console.log(dates);
+
+  return dates;
+};

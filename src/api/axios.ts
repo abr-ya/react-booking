@@ -13,7 +13,7 @@ axios.interceptors.request.use(
       ...config,
       headers: {
         ...config.headers,
-        authorization: token,
+        authorization: `Bearer ${token}`,
       },
     };
   },
